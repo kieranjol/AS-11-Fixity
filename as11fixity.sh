@@ -1,6 +1,10 @@
 #!/bin/bash 
 #http://stackoverflow.com/a/15930450/2188572
 #only look for xml files in all directories below your chosen directory
+if [ -f "$1".csv ]; then
+	echo “CSV file already exists. Aborting“ ;
+	exit 1
+else
 echo "Filename,Title,Episode_Number,Md5_From_Xml,Md5_from_Mxf,Checksum_Result" >> "$1".csv 
 find "$1" -name "*.xml" | (
 	while IFS= read -r file; do
@@ -24,3 +28,4 @@ find "$1" -name "*.xml" | (
 	
 done
 )
+fi
