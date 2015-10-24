@@ -9,7 +9,7 @@ find "$1" -name "*.xml" | (
 	filename="$(basename "$file")"
 	filenoext="${filename%.*}"
 	echo "Processing "$file""
-    md5xml=($(xml sel -N 'x=http://www.digitalproductionpartnership.co.uk/ns/as11/2013' -t -v "//x:Programme/x:Technical/x:Additional/x:MediaChecksumValue" "$sourcepath/${filenoext}.xml"))
+    	md5xml=($(xml sel -N 'x=http://www.digitalproductionpartnership.co.uk/ns/as11/2013' -t -v "//x:Programme/x:Technical/x:Additional/x:MediaChecksumValue" "$sourcepath/${filenoext}.xml"))
 	md5mxf=($(md5deep -e "$sourcepath/${filenoext}.mxf"))
 	if [[ "${md5xml}" == "${md5mxf}" ]] ; then
 		echo "all is well!"
