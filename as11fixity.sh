@@ -18,12 +18,14 @@ find "$1" -name "*.xml" | (
     epnum=($(xml sel -N 'x=http://www.digitalproductionpartnership.co.uk/ns/as11/2013' -t -v "//x:Programme/x:Editorial/x:EpisodeTitleNumber" "$sourcepath/${filenoext}.xml"))
 	
 	md5mxf=($(md5deep -e "$sourcepath/${filenoext}.mxf"))
-	if [[ "${md5xml}" == "${md5mxf}" ]] ; then
-		echo "all is well!"
-		echo ""$file","$title","$epnum","$md5xml","$md5mxf", Correct Checksum" >> "$1".csv 
+	if [[ "${md5xml}" == "" ]] ; then
+             echo "not a sidecar"
+        elif [[ "${md5xml}" == "${md5mxf}" ]]  ; then
+	    echo "all is well!"
+	    echo ""$file","$title","$epnum","$md5xml","$md5mxf", Correct Checksum" >> "$1".csv 
 	else 
-		echo "something is wrong!"
-		echo ""$file","$title","$epnum","$md5xml","$md5mxf",Bad Checksum" >> "$1".csv 
+	    echo "something is wrong!"
+	    echo ""$file","$title","$epnum","$md5xml","$md5mxf",Bad Checksum" >> "$1".csv 
 	fi
 	
 done
