@@ -1,4 +1,4 @@
-# AS-11-Fixity
+# AS-11-Fixity - WIll eventually convert to python
 
 Placeholder just to remind me. Parse md5 element with xmlstarlet, run fixity check on the mxf, produce report if checksums do not match. <br>
 
