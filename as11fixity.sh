@@ -5,7 +5,7 @@ if [ -f ~/desktop/"$1.csv" ]; then
 	echo “CSV file already exists. Aborting“ ;
 	exit 1
 else
-echo "Filename,Title,Episode_Number,Md5_From_Xml,Md5_from_Mxf,Checksum_Result" >> ~/desktop/"$1.csv" 
+echo "Filename,Title,Episode_Number,Md5_From_Xml,Md5_from_Mxf,Checksum_Result" >> ~/desktop/"$(basename "$1")".csv
 find "$1" -name "*.xml" | (
 while IFS= read -r file; do
 
@@ -22,10 +22,10 @@ while IFS= read -r file; do
         echo "not a sidecar"
     elif [[ "${md5xml}" == "${md5mxf}" ]]  ; then
         echo "all is well!"
-	echo ""$file","$title","$epnum","$md5xml","$md5mxf", Correct Checksum" >> ~/desktop/"$1.csv"
+	echo ""$file","$title","$epnum","$md5xml","$md5mxf", Correct Checksum" >> ~/desktop/"$(basename "$1")".csv
     else 
 	echo "something is wrong!"
-	echo ""$file","$title","$epnum","$md5xml","$md5mxf",Bad Checksum" >> ~/desktop/"$1.csv"
+	echo ""$file","$title","$epnum","$md5xml","$md5mxf",Bad Checksum" >> ~/desktop/"$(basename "$1")".csv
     fi
 	
 done
