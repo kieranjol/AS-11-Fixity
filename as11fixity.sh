@@ -1,7 +1,7 @@
 #!/bin/bash 
 #http://stackoverflow.com/a/15930450/2188572
 #only look for xml files in all directories below your chosen directory
-if [ -f "$1".csv ]; then
+if [ -f ~/desktop/"$1.csv" ]; then
 	echo “CSV file already exists. Aborting“ ;
 	exit 1
 else
@@ -22,10 +22,10 @@ while IFS= read -r file; do
         echo "not a sidecar"
     elif [[ "${md5xml}" == "${md5mxf}" ]]  ; then
         echo "all is well!"
-	echo ""$file","$title","$epnum","$md5xml","$md5mxf", Correct Checksum" >> "$1".csv 
+	echo ""$file","$title","$epnum","$md5xml","$md5mxf", Correct Checksum" >> ~/desktop/"$1.csv"
     else 
 	echo "something is wrong!"
-	echo ""$file","$title","$epnum","$md5xml","$md5mxf",Bad Checksum" >> "$1".csv 
+	echo ""$file","$title","$epnum","$md5xml","$md5mxf",Bad Checksum" >> ~/desktop/"$1.csv"
     fi
 	
 done
