@@ -13,9 +13,17 @@ while IFS= read -r file; do
     filename="$(basename "$file")"
     filenoext="${filename%.*}"
     echo "Processing "$file""
-    md5xml=($(xml sel -N 'x=http://www.digitalproductionpartnership.co.uk/ns/as11/2013' -t -v "//x:Programme/x:Technical/x:Additional/x:MediaChecksumValue" "$sourcepath/${filenoext}.xml"))
-    title=($(xml sel -N 'x=http://www.digitalproductionpartnership.co.uk/ns/as11/2013' -t -v "//x:Programme/x:Editorial/x:ProgrammeTitle" "$sourcepath/${filenoext}.xml"))
-    epnum=($(xml sel -N 'x=http://www.digitalproductionpartnership.co.uk/ns/as11/2013' -t -v "//x:Programme/x:Editorial/x:EpisodeTitleNumber" "$sourcepath/${filenoext}.xml"))
+	namespace=($(exiftool -ProgrammeXmlns -u -b "$sourcepath/${filenoext}.xml"))
+	if [[ "${namespace}" == "http://www.digitalproductionpartnership.co.uk/ns/as11/2015" ]] ; then
+		as11_namespace="x=http://www.digitalproductionpartnership.co.uk/ns/as11/2015"
+	elif [[ "${namespace}" == "http://www.digitalproductionpartnership.co.uk/ns/as11/2013" ]] ; then
+		as11_namespace="x=http://www.digitalproductionpartnership.co.uk/ns/as11/2013"
+	fi
+	echo bla is $as11_namespace
+    md5xml=($(xml sel -N $as11_namespace -t -v "//x:Programme/x:Technical/x:Additional/x:MediaChecksumValue" "$sourcepath/${filenoext}.xml"))
+	echo $md5xml
+    title=($(xml sel -N $as11_namespace -t -v "//x:Programme/x:Editorial/x:ProgrammeTitle" "$sourcepath/${filenoext}.xml"))
+    epnum=($(xml sel -N $as11_namespace -t -v "//x:Programme/x:Editorial/x:EpisodeTitleNumber" "$sourcepath/${filenoext}.xml"))
 	
     md5mxf=($(md5deep -e "$sourcepath/${filenoext}.mxf"))
     if [[ "${md5xml}" == "" ]] ; then
