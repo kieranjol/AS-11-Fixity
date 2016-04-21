@@ -1,7 +1,7 @@
 #!/bin/bash 
 #http://stackoverflow.com/a/15930450/2188572
 #only look for xml files in all directories below your chosen directory
-if [ -f ~/desktop/"$1.csv" ]; then
+if [ -f  ~/desktop/"$(basename "$1")".csv ]; then
 	echo “CSV file already exists. Aborting“ ;
 	exit 1
 else
