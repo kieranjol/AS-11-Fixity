@@ -5,7 +5,7 @@ if [ -f ~/desktop/"$1.csv" ]; then
 	echo “CSV file already exists. Aborting“ ;
 	exit 1
 else
-echo "Filename,Title,Episode_Number,Md5_From_Xml,Md5_from_Mxf,Checksum_Result" >> "$1".csv 
+echo "Filename,Title,Episode_Number,Md5_From_Xml,Md5_from_Mxf,Checksum_Result" >> ~/desktop/"$1.csv" 
 find "$1" -name "*.xml" | (
 while IFS= read -r file; do
 
