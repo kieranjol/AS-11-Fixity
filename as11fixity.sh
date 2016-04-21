@@ -27,7 +27,7 @@ while IFS= read -r file; do
 	
     md5mxf=($(md5deep -e "$sourcepath/${filenoext}.mxf"))
     if [[ "${md5xml}" == "" ]] ; then
-        echo "not a sidecar"
+        echo "Missing checksum in XML, or not a DPP sidecar, or namespace issue"
     elif [[ "${md5xml}" == "${md5mxf}" ]]  ; then
         echo "all is well!"
 	echo ""$file","$title","$epnum","$md5xml","$md5mxf", Correct Checksum" >> ~/desktop/"$(basename "$1")".csv
